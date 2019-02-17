@@ -21,23 +21,16 @@ function enterInput(event: KeyboardEvent): void {
 // Once the window has loaded, records keys pressed
 window.onload = () => document.addEventListener('keydown', enterInput);
 
-let headsData: { [numberHeads: number]: number } = {}; // Stores the total amount of head
-
-let runData = {
-  heads: 0,
-  tails: 0,
-  currentSide: 'neither'
-};
-
-let highestRuns: number[] = [0, 0];
+let headsData: {[headsAmount: number]: number} = {}; // Stores the total amount of head
 
 // Displays the current amount of heads and tails
 // Function is run when button is clicked
 function replyToss(): void {
   let htmlOutput: string; // Final outputted result
 
-  const coinInput = (document.getElementById("coinToss") as HTMLInputElement).value; // Inputted Value
-  const coinAmount = Number(coinInput); // Converted to int (results in NaN if not possible)
+  // Inputted Value
+  // Converted to int (results in NaN if not possible)
+  const coinAmount = Number((document.getElementById("coinToss") as HTMLInputElement).value);
 
   const headsAmount = Math.floor(Math.random() * coinAmount); // Random number between 0 and coinAmount
   const tailsAmount = coinAmount - headsAmount;
@@ -56,7 +49,7 @@ function replyToss(): void {
     // Value which is greatest gets a tick
     if (headsAmount > tailsAmount) {
       headsOutput += " ✅";
-      runCounter('heads');
+      runCounter('heads'); // Determines how many heads there are in a row
 
     } else if (headsAmount < tailsAmount) {
       tailsOutput += " ✅";
@@ -68,23 +61,44 @@ function replyToss(): void {
     }
 
     htmlOutput = "Heads Amount: " + headsOutput + "<br>" + "Tails Amount: " + tailsOutput;
-    countTable(); // Table drawn with data on the amount of heads
+    drawTable(['Number of Heads', 'Frequency'], headsData, 'headsTable'); // Table drawn with data on the amount of heads
   }
   // Receives current value and changes it to `htmlOutput`
   (document.getElementById("tossOutput") as HTMLInputElement).innerHTML = htmlOutput;
 }
 
-// Creates table showing the number of heads and their frequencies
-function countTable(): void {
+// drawTable Parameters:
+// tableHeaders: Two strings in a list denoting the headers
+// Data: Dictionary/List containing relevant information
+// elementID: Where to be placed in the index.html
+// side: Denotes the side of the coin for runs
+function drawTable(tableHeaders: string[], data: {[headsAmount: number]: number} | number[], elementID: string): void {
   // Headers created
-  let finalOutput = "<table><tr><th>Number of Heads</th><th>Frequency</th></tr>";
-// tslint:disable-next-line: forin
-  for (const item in headsData) { // Creates row for each item in headData
-    finalOutput += "<tr><td>" + String(item) + "</td><td>" + String(headsData[item]) + "</td></tr>";
+  let finalOutput = "<table><tr><th>" + tableHeaders[0] + "</th><th>" + tableHeaders[1] + "</th></tr>";
+  let list_counter = 0; // Iterates through highestRuns
+  for (const item in data) { // Creates row for each item in headData
+    if (Array.isArray(data)) { // If it's a list, and therefore coin runs
+      const coin_side = ['Heads', 'Tails'];
+      finalOutput += "<tr><td>" + coin_side[list_counter] + "</td><td>" + highestRuns[list_counter] + "</td></tr>";
+    } else { // If it's a dictionary, and therefore Heads amount
+      finalOutput += "<tr><td>" + String(item) + "</td><td>" + String(data[item]) + "</td></tr>";
+    }
+    list_counter++;
   }
-  // Generates new table each time
-  (document.getElementById("headsTable") as HTMLInputElement).innerHTML = finalOutput + "</table>";
+  (document.getElementById(elementID) as HTMLInputElement).innerHTML = finalOutput + "</table>";
 }
+
+// Current run of heads and tails
+let runData: {[value: string]: number} = {
+  heads: 0,
+  tails: 0,
+};
+
+// Last side of the coin that was greatest
+let currentSide = 'neither';
+
+// Stores the highest repetitions of heads and tails
+let highestRuns: number[] = [0, 0];
 
 // Determines the highest run as well as the current run
 function runCounter(currentToss: string): void {
@@ -93,8 +107,8 @@ function runCounter(currentToss: string): void {
     runData.tails = 0;
   }
   // Only the currentToss' counter can be increased
-  // It can be increased if it was the previous side or there is no current side
-  else if (currentToss === runData.currentSide || runData[currentToss] === 0) {
+  // It can be increased if it was the previous side or if it's the new run
+  else if (currentToss === currentSide || runData[currentToss] === 0) {
     if (currentToss === 'heads') {
       runData.heads += 1;
       runData.tails = 0;
@@ -110,22 +124,8 @@ function runCounter(currentToss: string): void {
       highestRuns[1] = runData.tails;
     }
     // Displays table showing highest runs
-    runTable();
-
+    drawTable(['Coin Side', 'Highest Run'], highestRuns, 'coinRuns');
   }
-
   // Changes current side
-  runData.currentSide = currentToss;
-}
-
-// Creates table showing runs
-function runTable(): void {
-  // Creates headers
-  let finalOutput = '<table><tr><th>Coin Side</th><th>Highest Run</th></tr>';
-
-  finalOutput += '<tr><td>Heads</td><td>' + String(highestRuns[0]) + '</td></tr>';
-  finalOutput += '<tr><td>Tails</td><td>' + String(highestRuns[1]) + '</td></tr>';
-
-  // Outputs table in the div `coinRuns`
-  (document.getElementById('coinRuns') as HTMLInputElement).innerHTML = finalOutput + '</table>';
+  currentSide = currentToss;
 }
