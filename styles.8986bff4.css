@@ -22,8 +22,8 @@ body {
     left: 0;
 }
 
-/* Image found in footer */
-[alt="Github"] {
+/* Github Cat found in footer */
+img {
     height: 75px;
     width: 75px;
 }

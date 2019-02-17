@@ -105,7 +105,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   // Override the current require with this new one
   return newRequire;
 })({"index.ts":[function(require,module,exports) {
-// This file is part of TossingCoins.
+"use strict"; // This file is part of TossingCoins.
 // TossingCoins is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -116,6 +116,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 // GNU General Public License for more details.
 // You should have received a copy of the GNU General Public License
 // along with /TossingCoins.  If not, see <http://www.gnu.org/licenses/>.
+
 function enterInput(event) {
   if (event.key == 'Enter') {
     // Checks if enter key is pressed to display coin amounts
@@ -129,22 +130,15 @@ window.onload = function () {
 };
 
 var headsData = {}; // Stores the total amount of head
-
-var runData = {
-  heads: 0,
-  tails: 0,
-  currentSide: 'neither'
-};
-var highestRuns = [0, 0]; // Displays the current amount of heads and tails
+// Displays the current amount of heads and tails
 // Function is run when button is clicked
 
 function replyToss() {
   var htmlOutput; // Final outputted result
+  // Inputted Value
+  // Converted to int (results in NaN if not possible)
 
-  var coinInput = document.getElementById("coinToss").value; // Inputted Value
-
-  var coinAmount = Number(coinInput); // Converted to int (results in NaN if not possible)
-
+  var coinAmount = Number(document.getElementById("coinToss").value);
   var headsAmount = Math.floor(Math.random() * coinAmount); // Random number between 0 and coinAmount
 
   var tailsAmount = coinAmount - headsAmount;
@@ -163,7 +157,7 @@ function replyToss() {
 
     if (headsAmount > tailsAmount) {
       headsOutput += " ✅";
-      runCounter('heads');
+      runCounter('heads'); // Determines how many heads there are in a row
     } else if (headsAmount < tailsAmount) {
       tailsOutput += " ✅";
       runCounter('tails');
@@ -175,27 +169,49 @@ function replyToss() {
     }
 
     htmlOutput = "Heads Amount: " + headsOutput + "<br>" + "Tails Amount: " + tailsOutput;
-    countTable(); // Table drawn with data on the amount of heads
+    drawTable(['Number of Heads', 'Frequency'], headsData, 'headsTable'); // Table drawn with data on the amount of heads
   } // Receives current value and changes it to `htmlOutput`
 
 
   document.getElementById("tossOutput").innerHTML = htmlOutput;
-} // Creates table showing the number of heads and their frequencies
+} // drawTable Parameters:
+// tableHeaders: Two strings in a list denoting the headers
+// Data: Dictionary/List containing relevant information
+// elementID: Where to be placed in the index.html
+// side: Denotes the side of the coin for runs
 
 
-function countTable() {
+function drawTable(tableHeaders, data, elementID) {
   // Headers created
-  var finalOutput = "<table><tr><th>Number of Heads</th><th>Frequency</th></tr>"; // tslint:disable-next-line: forin
+  var finalOutput = "<table><tr><th>" + tableHeaders[0] + "</th><th>" + tableHeaders[1] + "</th></tr>";
+  var list_counter = 0; // Iterates through highestRuns
 
-  for (var item in headsData) {
+  for (var item in data) {
     // Creates row for each item in headData
-    finalOutput += "<tr><td>" + String(item) + "</td><td>" + String(headsData[item]) + "</td></tr>";
-  } // Generates new table each time
+    if (Array.isArray(data)) {
+      // If it's a list, and therefore coin runs
+      var coin_side = ['Heads', 'Tails'];
+      finalOutput += "<tr><td>" + coin_side[list_counter] + "</td><td>" + highestRuns[list_counter] + "</td></tr>";
+    } else {
+      // If it's a dictionary, and therefore Heads amount
+      finalOutput += "<tr><td>" + String(item) + "</td><td>" + String(data[item]) + "</td></tr>";
+    }
+
+    list_counter++;
+  }
+
+  document.getElementById(elementID).innerHTML = finalOutput + "</table>";
+} // Current run of heads and tails
 
 
-  document.getElementById("headsTable").innerHTML = finalOutput + "</table>";
-} // Determines the highest run as well as the current run
+var runData = {
+  heads: 0,
+  tails: 0
+}; // Last side of the coin that was greatest
 
+var currentSide = 'neither'; // Stores the highest repetitions of heads and tails
+
+var highestRuns = [0, 0]; // Determines the highest run as well as the current run
 
 function runCounter(currentToss) {
   if (currentToss === 'neither') {
@@ -203,8 +219,8 @@ function runCounter(currentToss) {
     runData.heads = 0;
     runData.tails = 0;
   } // Only the currentToss' counter can be increased
-  // It can be increased if it was the previous side or there is no current side
-  else if (currentToss === runData.currentSide || runData[currentToss] === 0) {
+  // It can be increased if it was the previous side or if it's the new run
+  else if (currentToss === currentSide || runData[currentToss] === 0) {
       if (currentToss === 'heads') {
         runData.heads += 1;
         runData.tails = 0;
@@ -221,21 +237,11 @@ function runCounter(currentToss) {
       } // Displays table showing highest runs
 
 
-      runTable();
+      drawTable(['Coin Side', 'Highest Run'], highestRuns, 'coinRuns');
     } // Changes current side
 
 
-  runData.currentSide = currentToss;
-} // Creates table showing runs
-
-
-function runTable() {
-  // Creates headers
-  var finalOutput = "<table><tr><th>Coin Side</th><th>Highest Run</th></tr>";
-  finalOutput += "<tr><td>Heads</td><td>" + String(highestRuns[0]) + "</td></tr>";
-  finalOutput += "<tr><td>Tails</td><td>" + String(highestRuns[1]) + "</td></tr>"; // Outputs table in the div `coinRuns`
-
-  document.getElementById("coinRuns").innerHTML = finalOutput + "</table>";
+  currentSide = currentToss;
 }
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -264,7 +270,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65159" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62077" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
