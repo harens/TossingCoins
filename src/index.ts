@@ -52,7 +52,6 @@ function replyToss(): void {
     if (headsAmount > tailsAmount) {
       headsOutput += " ✅";
       runCounter('heads'); // Determines how many heads there are in a row
-
     } else if (headsAmount < tailsAmount) {
       tailsOutput += " ✅";
       runCounter('tails');
