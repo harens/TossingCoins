@@ -12,6 +12,8 @@
 // You should have received a copy of the GNU General Public License
 // along with /TossingCoins.  If not, see <http://www.gnu.org/licenses/>.
 
+import Chartist = require("chartist");
+
 function enterInput(event: KeyboardEvent): void {
   if (event.key == 'Enter') { // Checks if enter key is pressed to display coin amounts
     replyToss();
@@ -61,6 +63,7 @@ function replyToss(): void {
     }
 
     htmlOutput = "Heads Amount: " + headsOutput + "<br>" + "Tails Amount: " + tailsOutput;
+    lineGraph();
     drawTable(['Number of Heads', 'Frequency'], headsData, 'headsTable'); // Table drawn with data on the amount of heads
   }
   // Receives current value and changes it to `htmlOutput`
@@ -128,4 +131,31 @@ function runCounter(currentToss: string): void {
   }
   // Changes current side
   currentSide = currentToss;
+}
+
+// Draws graph for the number of heads
+function lineGraph() {
+
+  // Labels axes
+  (document.getElementById("xAxis") as HTMLInputElement).innerHTML = "Number of Heads";
+  (document.getElementById("yAxis") as HTMLInputElement).innerHTML = "Frequency";
+
+  let labelItems: string[] = [];
+  let seriesHeads: number[] = [];
+
+  // Adds data from dictionaries to lists
+  for (let item in headsData){
+    labelItems.push(item);
+    seriesHeads.push(headsData[item] + 1)
+  }
+  new Chartist.Line('.ct-chart', {
+    labels: labelItems,
+    series: [seriesHeads]
+  }, {
+    axisY: {
+      onlyInteger: true
+    },
+    width: window.screen.width - 5,
+    height: 200,
+  });
 }

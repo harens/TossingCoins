@@ -19,31 +19,36 @@
 
 <body>
 
-<div class="header">
-<h1>Tossing Coins</h1>
-</div>
-<br>
+    <div class="header">
+        <h1>Tossing Coins</h1>
+    </div>
+    <br>
+    <div id="yAxis"></div>
+    <div class="ct-chart"></div>
+    <div id="xAxis"></div>
+    <br><br>
+    <!--Tables showing heads frequency and runs-->
+    <table id="headsTable"></table>
+    <table id="coinRuns"></table>
 
-<!--Tables showing heads frequency and runs-->
-<table id="headsTable"></table>
-<table id="coinRuns"></table>
-Coin Toss Amount: <label for="coinToss"></label><input id="coinToss" type="text"/>
-<br> <br>
-<!--Where the number of Heads/Tails are shown-->
-<div id="tossOutput"></div>
-<br><br>
-<div class="footer">
-  <h5>
-    harens
-    <br>
-    @samarah
-    <br>
-    <a href="https://github.com/harens/TossingCoins">
-      <img src="https://www.shareicon.net/data/2016/06/20/606964_github_4096x4096.png" alt="Github">
-    </a>
-  </h5>
-</div>
-<script src="index.ts"></script>
+    Coin Toss Amount: <label for="coinToss"></label><input id="coinToss" type="text" />
+    <br> <br>
+    <!--Where the number of Heads/Tails are shown-->
+    <div id="tossOutput"></div>
+    <br><br>
+    <div class="break"></div> <!--Acts as a break from the static footer-->
+    <div class="footer">
+        <h5>
+            harens
+            <br>
+            @samarah
+            <br>
+            <a href="https://github.com/harens/TossingCoins">
+                <img src="https://www.shareicon.net/data/2016/06/20/606964_github_4096x4096.png" alt="Github">
+            </a>
+        </h5>
+    </div>
+    <script src="index.ts"></script>
 </body>
 
 </html>
