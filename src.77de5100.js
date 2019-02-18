@@ -4659,17 +4659,26 @@ function runCounter(currentToss) {
 
 
       drawTable(['Coin Side', 'Highest Run'], highestRuns, 'coinRuns');
+      barGraph(); // Draws a graph with the data
     } // Changes current side
 
 
   currentSide = currentToss;
+}
+
+var screenWidth;
+
+if (window.screen.width >= 600) {
+  screenWidth = window.screen.width - 100;
+} else {
+  screenWidth = window.screen.width - 5;
 } // Draws graph for the number of heads
 
 
 function lineGraph() {
   // Labels axes
-  document.getElementById("xAxis").innerHTML = "Number of Heads";
-  document.getElementById("yAxis").innerHTML = "Frequency";
+  document.getElementById("xLine").innerHTML = "Number of Heads";
+  document.getElementById("yLine").innerHTML = "Frequency";
   var labelItems = [];
   var seriesHeads = []; // Adds data from dictionaries to lists
 
@@ -4678,15 +4687,33 @@ function lineGraph() {
     seriesHeads.push(headsData[item] + 1);
   }
 
-  new Chartist.Line('.ct-chart', {
+  new Chartist.Line('.ct-line', {
     labels: labelItems,
     series: [seriesHeads]
   }, {
     axisY: {
       onlyInteger: true
     },
-    width: window.screen.width - 5,
+    width: screenWidth,
     height: 200
+  });
+} // Draws graph with run data
+
+
+function barGraph() {
+  // Sets the y axes
+  document.getElementById("xChart").innerHTML = "Highest run";
+  new Chartist.Bar('.ct-chart', {
+    labels: ['Heads', 'Tails'],
+    series: [[highestRuns[0], highestRuns[1]]]
+  }, {
+    axisX: {
+      onlyInteger: true
+    },
+    width: screenWidth,
+    height: 200,
+    reverseData: true,
+    horizontalBars: true
   });
 }
 },{"chartist":"../node_modules/chartist/dist/chartist.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -4716,7 +4743,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64395" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53659" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
