@@ -13,11 +13,12 @@ body {
 
 .footer {
     padding: 5px;
+    height: 124px;
     text-align: center;
     background: #3D7068;
     position: fixed;
-    bottom: 1%;
-    left: 1%;
+    top: 1%;
+    right: 1%;
     border-radius: 15px;
 }
 
@@ -30,8 +31,16 @@ img {
 table {
     border: 1px solid #43C59E;
     border-collapse: collapse; /* Removes middle line */
-    margin-right: 20px;
     float: right;
+}
+
+/* Allows room for the footers */
+#headsTable {
+    margin-right: 120px;
+}
+
+#coinRuns {
+    margin-right: 20px;
 }
 
 input {
@@ -49,27 +58,41 @@ th, td {
     padding: 10px;
 }
 
+
+/* Line Graph */
 .ct-series-a .ct-line {
-    /* Set the colour of this series line */
+    /* Colour of the series line */
     stroke: #43C59E;
     /* Control the thikness of your lines */
     stroke-width: 5px;
-    /* Create a dashed line with a pattern */
+    /* Creates a dashed line with a pattern */
     stroke-dasharray: 10px 20px;
 }
 
 /* This selector overrides the points style on line charts. Points on line charts are actually just very short strokes. This allows you to customize even the point size in CSS */
 .ct-series-a .ct-point {
-    /* Colour of your points */
+    /* Colour of the points */
     stroke: #43C59E;
-    /* Size of your points */
+    /* Size of the points */
     stroke-width: 17px;
-    /* Make your points appear as squares */
+    /* Appearance of points */
     stroke-linecap: round;
 }
 
-#xAxis {
+#xLine, #xChart {
     text-align: center;
+}
+
+/* Bar Graph */
+.ct-series-a .ct-bar {
+  /* Colour of the bars */
+  stroke: #43C59E;
+  /* Width of the bars */
+  stroke-width: 20px;
+  /* Dashed bars */
+  stroke-dasharray: 20px;
+  /* Corners on the bars? */
+  stroke-linecap: round;
 }
 
 /* RWD */
@@ -88,11 +111,15 @@ th, td {
         position: fixed;
         width: 100%;
         height: 130px;
+        top: auto;
+        right: auto;
         left: 0;
         bottom: 0;
         border-radius: 0;
     }
 
+    /* Allows for all content to be seen */
+    /* When scrolling, is underneath the fixed footer*/
     .break {
         display: block;
         margin: 130px 0;

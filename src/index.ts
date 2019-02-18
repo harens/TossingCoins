@@ -127,17 +127,26 @@ function runCounter(currentToss: string): void {
     }
     // Displays table showing highest runs
     drawTable(['Coin Side', 'Highest Run'], highestRuns, 'coinRuns');
+    barGraph(); // Draws a graph with the data
   }
   // Changes current side
   currentSide = currentToss;
 }
 
+let screenWidth: number;
+
+if (window.screen.width >= 600) {
+  screenWidth = window.screen.width - 100;
+} else{
+  screenWidth = window.screen.width - 5;
+}
+
 // Draws graph for the number of heads
-function lineGraph() {
+function lineGraph(): void {
 
   // Labels axes
-  (document.getElementById("xAxis") as HTMLInputElement).innerHTML = "Number of Heads";
-  (document.getElementById("yAxis") as HTMLInputElement).innerHTML = "Frequency";
+  (document.getElementById("xLine") as HTMLInputElement).innerHTML = "Number of Heads";
+  (document.getElementById("yLine") as HTMLInputElement).innerHTML = "Frequency";
 
   let labelItems: string[] = [];
   let seriesHeads: number[] = [];
@@ -147,14 +156,38 @@ function lineGraph() {
     labelItems.push(item);
     seriesHeads.push(headsData[item] + 1)
   }
-  new Chartist.Line('.ct-chart', {
+  new Chartist.Line('.ct-line', {
     labels: labelItems,
     series: [seriesHeads]
   }, {
     axisY: {
       onlyInteger: true
-    },
-    width: window.screen.width - 5,
-    height: 200,
+    }, // Taking away width gives room for the footer
+    width: screenWidth,
+    height: 200
   });
+}
+
+
+// Draws graph with run data
+function barGraph(): void {
+
+  // Sets the y axes
+  (document.getElementById("xChart") as HTMLInputElement).innerHTML = "Highest run";
+
+  new Chartist.Bar('.ct-chart', {
+    labels: ['Heads', 'Tails'],
+    series: [
+      [highestRuns[0], highestRuns[1]]
+    ]
+  }, {
+    axisX: {
+      onlyInteger: true
+    }, // Taking away width gives room for the footer
+    width: screenWidth,
+    height: 200,
+    reverseData: true,
+    horizontalBars: true
+  }
+  )
 }
