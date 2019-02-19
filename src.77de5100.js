@@ -4535,7 +4535,11 @@ Object.defineProperty(exports, "__esModule", {
 // You should have received a copy of the GNU General Public License
 // along with /TossingCoins.  If not, see <http://www.gnu.org/licenses/>.
 
-var Chartist = require("chartist");
+var Chartist = require("chartist"); // Credit to konklone/ssl-redirect.html
+
+
+var host = "harens.me";
+if (host == window.location.host && window.location.protocol != "https:") window.location.protocol = "https"; // Forces a redirect to HTTPS
 
 function enterInput(event) {
   if (event.key == 'Enter') {
@@ -4743,7 +4747,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53659" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50775" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
