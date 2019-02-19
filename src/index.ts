@@ -14,6 +14,11 @@
 
 import Chartist = require("chartist");
 
+// Credit to konklone/ssl-redirect.html
+const host = "harens.me"
+if ((host == window.location.host) && (window.location.protocol != "https:"))
+  window.location.protocol = "https"; // Forces a redirect to HTTPS
+
 function enterInput(event: KeyboardEvent): void {
   if (event.key == 'Enter') { // Checks if enter key is pressed to display coin amounts
     replyToss();
