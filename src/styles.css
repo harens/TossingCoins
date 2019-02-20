@@ -3,23 +3,23 @@ body {
     color: #ffffff;
     margin: 0;
     background-color: #14453D;
-    height: 100%
 }
 
 .header {
     padding: 30px;
     text-align: center;
     background: #3D7068;
-    font-size: 30px;
 }
 
 .footer {
     padding: 5px;
+    height: 124px;
     text-align: center;
     background: #3D7068;
     position: fixed;
-    bottom: 0;
-    left: 0;
+    top: 1%;
+    right: 1%;
+    border-radius: 15px;
 }
 
 /* Github Cat found in footer */
@@ -29,10 +29,23 @@ img {
 }
 
 table {
-    float: right;
     border: 1px solid #43C59E;
     border-collapse: collapse; /* Removes middle line */
+    float: right;
+}
+
+/* Allows room for the footers */
+#headsTable {
+    margin-right: 120px;
+}
+
+#coinRuns {
     margin-right: 20px;
+}
+
+input {
+    padding: 5px;
+    border-radius: 10px;
 }
 
 /* Header of table */
@@ -43,4 +56,58 @@ th {
 /* Header and rows of table */
 th, td {
     padding: 10px;
+}
+
+
+/* Line Graph */
+.ct-series-a .ct-line {
+    /* Colour of the series line */
+    stroke: #43C59E;
+    /* Control the thikness of your lines */
+    stroke-width: 5px;
+    /* Creates a dashed line with a pattern */
+    stroke-dasharray: 10px 20px;
+}
+
+/* This selector overrides the points style on line charts. Points on line charts are actually just very short strokes. This allows you to customize even the point size in CSS */
+.ct-series-a .ct-point {
+    /* Colour of the points */
+    stroke: #43C59E;
+    /* Size of the points */
+    stroke-width: 17px;
+    /* Appearance of points */
+    stroke-linecap: round;
+}
+
+#xLine, #xChart {
+    text-align: center;
+}
+
+/* Bar Graph */
+.ct-series-a .ct-bar {
+  /* Colour of the bars */
+  stroke: #43C59E;
+  /* Width of the bars */
+  stroke-width: 20px;
+  /* Dashed bars */
+  stroke-dasharray: 20px;
+  /* Corners on the bars? */
+  stroke-linecap: round;
+}
+
+/* RWD */
+@media only screen and (max-width: 870px) {
+
+    .footer {
+        display: none
+    }
+
+    .header { 
+        width: 100%;
+        padding: 5px;
+    }
+    
+    table {
+        display: none;
+    }
 }

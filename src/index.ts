@@ -12,6 +12,13 @@
 // You should have received a copy of the GNU General Public License
 // along with /TossingCoins.  If not, see <http://www.gnu.org/licenses/>.
 
+import Chartist = require("chartist");
+
+// Credit to konklone/ssl-redirect.html
+const host = "harens.me"
+if ((host == window.location.host) && (window.location.protocol != "https:"))
+  window.location.protocol = "https"; // Forces a redirect to HTTPS
+
 function enterInput(event: KeyboardEvent): void {
   if (event.key == 'Enter') { // Checks if enter key is pressed to display coin amounts
     replyToss();
@@ -50,7 +57,6 @@ function replyToss(): void {
     if (headsAmount > tailsAmount) {
       headsOutput += " ✅";
       runCounter('heads'); // Determines how many heads there are in a row
-
     } else if (headsAmount < tailsAmount) {
       tailsOutput += " ✅";
       runCounter('tails');
@@ -61,6 +67,7 @@ function replyToss(): void {
     }
 
     htmlOutput = "Heads Amount: " + headsOutput + "<br>" + "Tails Amount: " + tailsOutput;
+    lineGraph();
     drawTable(['Number of Heads', 'Frequency'], headsData, 'headsTable'); // Table drawn with data on the amount of heads
   }
   // Receives current value and changes it to `htmlOutput`
@@ -125,7 +132,67 @@ function runCounter(currentToss: string): void {
     }
     // Displays table showing highest runs
     drawTable(['Coin Side', 'Highest Run'], highestRuns, 'coinRuns');
+    barGraph(); // Draws a graph with the data
   }
   // Changes current side
   currentSide = currentToss;
+}
+
+let screenWidth: number;
+
+if (window.screen.width >= 600) {
+  screenWidth = window.screen.width - 100;
+} else{
+  screenWidth = window.screen.width - 5;
+}
+
+// Draws graph for the number of heads
+function lineGraph(): void {
+
+  // Labels axes
+  (document.getElementById("xLine") as HTMLInputElement).innerHTML = "Number of Heads";
+  (document.getElementById("yLine") as HTMLInputElement).innerHTML = "Frequency";
+
+  let labelItems: string[] = [];
+  let seriesHeads: number[] = [];
+
+  // Adds data from dictionaries to lists
+  for (let item in headsData){
+    labelItems.push(item);
+    seriesHeads.push(headsData[item] + 1)
+  }
+  new Chartist.Line('.ct-line', {
+    labels: labelItems,
+    series: [seriesHeads]
+  }, {
+    axisY: {
+      onlyInteger: true
+    }, // Taking away width gives room for the footer
+    width: screenWidth,
+    height: 200
+  });
+}
+
+
+// Draws graph with run data
+function barGraph(): void {
+
+  // Sets the y axes
+  (document.getElementById("xChart") as HTMLInputElement).innerHTML = "Highest run";
+
+  new Chartist.Bar('.ct-chart', {
+    labels: ['Heads', 'Tails'],
+    series: [
+      [highestRuns[0], highestRuns[1]]
+    ]
+  }, {
+    axisX: {
+      onlyInteger: true
+    }, // Taking away width gives room for the footer
+    width: screenWidth,
+    height: 200,
+    reverseData: true,
+    horizontalBars: true
+  }
+  )
 }
