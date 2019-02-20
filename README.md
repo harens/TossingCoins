@@ -6,9 +6,13 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/harens/TossingCoins/badge.svg?targetFile=package.json)](https://snyk.io/test/github/harens/TossingCoins?targetFile=package.json)
 [![Dependencies](https://img.shields.io/david/harens/TossingCoins.svg?style=flat)](https://github.com/harens/TossingCoins/blob/master/package.json)
 [![Dev Dependencies](https://img.shields.io/david/dev/harens/TossingCoins.svg)](https://github.com/harens/TossingCoins/blob/master/package.json)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fharens%2FTossingCoins.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fharens%2FTossingCoins?ref=badge_shield)
 
 Tossing coins without tossing coins!
 
 ## License
 
-This project is licensed under the [GNU General Public License v3.0](https://github.com/harens/TossingCoins/blob/master/LICENSE)
+This project is licensed under the [GNU General Public License v3.0](https://github.com/harens/TossingCoins/blob/master/LICENSE) 
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fharens%2FTossingCoins.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fharens%2FTossingCoins?ref=badge_large)
