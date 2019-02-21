@@ -15,7 +15,7 @@
 import Chartist = require("chartist");
 
 // Credit to konklone/ssl-redirect.html
-const host = "harens.me"
+const host = "harens.me";
 if ((host == window.location.host) && (window.location.protocol != "https:"))
   window.location.protocol = "https"; // Forces a redirect to HTTPS
 

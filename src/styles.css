@@ -39,13 +39,16 @@ table {
     margin-right: 120px;
 }
 
+/* Creates space between the tables */
 #coinRuns {
     margin-right: 20px;
 }
 
 input {
-    padding: 5px;
+    padding: 10px;
+    /* Adds rounded corners */
     border-radius: 10px;
+    border: 2px solid red;
 }
 
 /* Header of table */
@@ -56,6 +59,10 @@ th {
 /* Header and rows of table */
 th, td {
     padding: 10px;
+}
+
+tr:hover {
+    background-color: #43C59E;
 }
 
 
@@ -96,18 +103,9 @@ th, td {
 }
 
 /* RWD */
+/* Hides the footer and tables */
 @media only screen and (max-width: 870px) {
 
-    .footer {
+    .footer, table {
         display: none
     }
-
-    .header { 
-        width: 100%;
-        padding: 5px;
-    }
-    
-    table {
-        display: none;
-    }
-}
