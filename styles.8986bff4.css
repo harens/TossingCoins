@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 body {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
@@ -109,3 +111,4 @@ tr:hover {
     .footer, table {
         display: none
     }
+}
