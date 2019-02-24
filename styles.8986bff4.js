@@ -176,7 +176,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./fonts/montserrat-v12-latin-regular.eot":[["montserrat-v12-latin-regular.98fb898c.eot","fonts/montserrat-v12-latin-regular.eot"],"fonts/montserrat-v12-latin-regular.eot"],"./fonts/montserrat-v12-latin-regular.woff2":[["montserrat-v12-latin-regular.2c7ba812.woff2","fonts/montserrat-v12-latin-regular.woff2"],"fonts/montserrat-v12-latin-regular.woff2"],"./fonts/montserrat-v12-latin-regular.woff":[["montserrat-v12-latin-regular.1f09f01e.woff","fonts/montserrat-v12-latin-regular.woff"],"fonts/montserrat-v12-latin-regular.woff"],"./fonts/montserrat-v12-latin-regular.ttf":[["montserrat-v12-latin-regular.9f84412b.ttf","fonts/montserrat-v12-latin-regular.ttf"],"fonts/montserrat-v12-latin-regular.ttf"],"./fonts/montserrat-v12-latin-regular.svg":[["montserrat-v12-latin-regular.6b5c5707.svg","fonts/montserrat-v12-latin-regular.svg"],"fonts/montserrat-v12-latin-regular.svg"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -203,7 +203,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54350" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56345" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
