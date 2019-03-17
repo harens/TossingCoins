@@ -3,13 +3,13 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 400;
-  src: url('montserrat-v12-latin-regular.98fb898c.eot'); /* IE9 Compat Modes */
+  src: url('/montserrat-v12-latin-regular.98fb898c.eot'); /* IE9 Compat Modes */
   src: local('Montserrat Regular'), local('Montserrat-Regular'),
-       url('montserrat-v12-latin-regular.98fb898c.eot?#iefix') format('embedded-opentype'), 
-       url('montserrat-v12-latin-regular.2c7ba812.woff2') format('woff2'), 
-       url('montserrat-v12-latin-regular.1f09f01e.woff') format('woff'), 
-       url('montserrat-v12-latin-regular.9f84412b.ttf') format('truetype'), 
-       url('montserrat-v12-latin-regular.6b5c5707.svg#Montserrat') format('svg'); /* Legacy iOS */
+       url('/montserrat-v12-latin-regular.98fb898c.eot?#iefix') format('embedded-opentype'), 
+       url('/montserrat-v12-latin-regular.2c7ba812.woff2') format('woff2'), 
+       url('/montserrat-v12-latin-regular.1f09f01e.woff') format('woff'), 
+       url('/montserrat-v12-latin-regular.9f84412b.ttf') format('truetype'), 
+       url('/montserrat-v12-latin-regular.6b5c5707.svg#Montserrat') format('svg'); /* Legacy iOS */
 }
 
 body {
@@ -124,3 +124,5 @@ tr:hover {
         display: none
     }
 }
+
+/*# sourceMappingURL=/styles.8986bff4.css.map */
