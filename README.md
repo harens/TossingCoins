@@ -19,9 +19,13 @@ git clone https://github.com/harens/TossingCoins
 ```
 
 Install Dependencies: `yarn install`
+
 Run: `yarn start`
+
 Build: `yarn build`
+
 Deploy: `yarn deploy`
+
 
 ## License
 
