@@ -39,7 +39,7 @@ function replyToss(): void {
   // Converted to int (results in NaN if not possible)
   const coinAmount = Number((document.getElementById("coinToss") as HTMLInputElement).value);
 
-  const headsAmount = Math.floor(Math.random() * coinAmount); // Random number between 0 and coinAmount
+  const headsAmount = Math.round(Math.random() * coinAmount); // Random number between 0 and coinAmount
   const tailsAmount = coinAmount - headsAmount;
 
   if (coinAmount <= 0 || isNaN(coinAmount)) { // Input has to be a number that is greater than 0

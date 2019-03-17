@@ -10,9 +10,21 @@
 
 Tossing coins without tossing coins!
 
+## Run Locally
+
+Clone the project, or install it [here](https://github.com/harens/TossingCoins/archive/master.zip)
+
+```shell
+git clone https://github.com/harens/TossingCoins
+```
+
+Install Dependencies: `yarn install`
+Run: `yarn start`
+Build: `yarn build`
+Deploy: `yarn deploy`
+
 ## License
 
-This project is licensed under the [GNU General Public License v3.0](https://github.com/harens/TossingCoins/blob/master/LICENSE) 
-
+This project is licensed under the [GNU General Public License v3.0](https://github.com/harens/TossingCoins/blob/master/LICENSE)
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fharens%2FTossingCoins.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fharens%2FTossingCoins?ref=badge_large)
