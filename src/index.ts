@@ -16,11 +16,12 @@ import Chartist = require("chartist");
 
 // Credit to konklone/ssl-redirect.html
 const host = "harens.me";
-if ((host == window.location.host) && (window.location.protocol != "https:"))
+if (host == window.location.host && window.location.protocol != "https:")
   window.location.protocol = "https"; // Forces a redirect to HTTPS
 
 function enterInput(event: KeyboardEvent): void {
-  if (event.key == 'Enter') { // Checks if enter key is pressed to display coin amounts
+  if (event.key == "Enter") {
+    // Checks if enter key is pressed to display coin amounts
     replyToss();
   }
 }
@@ -33,7 +34,19 @@ let headsData: {[headsAmount: number]: number} = {}; // Stores the total amount 
 // Displays the current amount of heads and tails
 // Function is run when button is clicked
 function replyToss(): void {
-  let htmlOutput: string; // Final outputted result
+  let coinOutput: string; // Final heads/tails result
+  let totalAmount: number; // Final total tosses
+
+  let currentAmount = (document.getElementById(
+    "totalTosses"
+  ) as HTMLInputElement).innerHTML; // Current displayed value for total tosses
+
+  if (currentAmount === "") { // IF there is no displayed value
+    totalAmount = 0
+  } else {
+    let amountList = currentAmount.split(" ")
+    totalAmount = Number(amountList[amountList.length - 1]) // Last item of lisr
+  }
 
   // Inputted Value
   // Converted to int (results in NaN if not possible)
@@ -43,7 +56,7 @@ function replyToss(): void {
   const tailsAmount = coinAmount - headsAmount;
 
   if (coinAmount <= 0 || isNaN(coinAmount)) { // Input has to be a number that is greater than 0
-    htmlOutput = "INVALID OPTION";
+    coinOutput = "INVALID OPTION";
   } else {
     // If key does not exist, NaN is returned, which is falsey, and so it is then created with a value of 1
     // If it does exist, it increases by 1
@@ -66,12 +79,20 @@ function replyToss(): void {
       runCounter('neither');
     }
 
-    htmlOutput = "Heads Amount: " + headsOutput + "<br>" + "Tails Amount: " + tailsOutput;
+    coinOutput = "Heads Amount: " + headsOutput + "<br>" + "Tails Amount: " + tailsOutput;
+    let amountOutput = "Total Tosses: " + String(totalAmount += coinAmount);
+
     lineGraph();
     drawTable(['Number of Heads', 'Frequency'], headsData, 'headsTable'); // Table drawn with data on the amount of heads
+
+    (document.getElementById(
+      "totalTosses"
+    ) as HTMLInputElement).innerHTML = amountOutput;
   }
-  // Receives current value and changes it to `htmlOutput`
-  (document.getElementById("tossOutput") as HTMLInputElement).innerHTML = htmlOutput;
+  // Receives current value and changes it to `coinOutput`
+  (document.getElementById(
+    "tossOutput"
+  ) as HTMLInputElement).innerHTML = coinOutput;
 }
 
 // drawTable Parameters:
