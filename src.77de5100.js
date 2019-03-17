@@ -4555,7 +4555,7 @@ var host = "harens.me";
 if (host == window.location.host && window.location.protocol != "https:") window.location.protocol = "https"; // Forces a redirect to HTTPS
 
 function enterInput(event) {
-  if (event.key == 'Enter') {
+  if (event.key == "Enter") {
     // Checks if enter key is pressed to display coin amounts
     replyToss();
   }
@@ -4571,9 +4571,21 @@ var headsData = {}; // Stores the total amount of head
 // Function is run when button is clicked
 
 function replyToss() {
-  var htmlOutput; // Final outputted result
-  // Inputted Value
+  var coinOutput; // Final heads/tails result
+
+  var totalAmount; // Final total tosses
+
+  var currentAmount = document.getElementById("totalTosses").innerHTML; // Current displayed value for total tosses
+
+  if (currentAmount === "") {
+    // IF there is no displayed value
+    totalAmount = 0;
+  } else {
+    var amountList = currentAmount.split(" ");
+    totalAmount = Number(amountList[amountList.length - 1]); // Last item of lisr
+  } // Inputted Value
   // Converted to int (results in NaN if not possible)
+
 
   var coinAmount = Number(document.getElementById("coinToss").value);
   var headsAmount = Math.round(Math.random() * coinAmount); // Random number between 0 and coinAmount
@@ -4582,7 +4594,7 @@ function replyToss() {
 
   if (coinAmount <= 0 || isNaN(coinAmount)) {
     // Input has to be a number that is greater than 0
-    htmlOutput = "INVALID OPTION";
+    coinOutput = "INVALID OPTION";
   } else {
     // If key does not exist, NaN is returned, which is falsey, and so it is then created with a value of 1
     // If it does exist, it increases by 1
@@ -4605,13 +4617,16 @@ function replyToss() {
       runCounter('neither');
     }
 
-    htmlOutput = "Heads Amount: " + headsOutput + "<br>" + "Tails Amount: " + tailsOutput;
+    coinOutput = "Heads Amount: " + headsOutput + "<br>" + "Tails Amount: " + tailsOutput;
+    var amountOutput = "Total Tosses: " + String(totalAmount += coinAmount);
     lineGraph();
     drawTable(['Number of Heads', 'Frequency'], headsData, 'headsTable'); // Table drawn with data on the amount of heads
-  } // Receives current value and changes it to `htmlOutput`
+
+    document.getElementById("totalTosses").innerHTML = amountOutput;
+  } // Receives current value and changes it to `coinOutput`
 
 
-  document.getElementById("tossOutput").innerHTML = htmlOutput;
+  document.getElementById("tossOutput").innerHTML = coinOutput;
 } // drawTable Parameters:
 // tableHeaders: Two strings in a list denoting the headers
 // Data: Dictionary/List containing relevant information
@@ -4761,7 +4776,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57554" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62544" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
