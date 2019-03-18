@@ -4551,8 +4551,7 @@ Object.defineProperty(exports, "__esModule", {
 var Chartist = require("chartist"); // Credit to konklone/ssl-redirect.html
 
 
-var host = "harens.me";
-if (host == window.location.host && window.location.protocol != "https:") window.location.protocol = "https"; // Forces a redirect to HTTPS
+if ("harens.me" == window.location.host && window.location.protocol != "https:") window.location.protocol = "https"; // Forces a redirect to HTTPS
 
 function enterInput(event) {
   if (event.key == "Enter") {
@@ -4567,25 +4566,19 @@ window.onload = function () {
 };
 
 var headsData = {}; // Stores the total amount of head
-// Displays the current amount of heads and tails
+// Stores total amount of each value
+
+var coinData = {
+  heads: 0,
+  tails: 0,
+  total: 0
+}; // Displays the current amount of heads and tails
 // Function is run when button is clicked
 
 function replyToss() {
   var coinOutput; // Final heads/tails result
-
-  var totalAmount; // Final total tosses
-
-  var currentAmount = document.getElementById("totalTosses").innerHTML; // Current displayed value for total tosses
-
-  if (currentAmount === "") {
-    // IF there is no displayed value
-    totalAmount = 0;
-  } else {
-    var amountList = currentAmount.split(" ");
-    totalAmount = Number(amountList[amountList.length - 1]); // Last item of lisr
-  } // Inputted Value
+  // Inputted Value
   // Converted to int (results in NaN if not possible)
-
 
   var coinAmount = Number(document.getElementById("coinToss").value);
   var headsAmount = Math.round(Math.random() * coinAmount); // Random number between 0 and coinAmount
@@ -4615,16 +4608,39 @@ function replyToss() {
       headsOutput += " 💰";
       tailsOutput += " 💰";
       runCounter('neither');
-    }
+    } // Displayed values for current amounts
 
-    coinOutput = "Heads Amount: " + headsOutput + "<br>" + "Tails Amount: " + tailsOutput;
-    var amountOutput = "Total Tosses: " + String(totalAmount += coinAmount);
+
+    coinOutput = "<h2>Current Amount:</h2><br>Heads: " + headsOutput + "<br>" + "Tails: " + tailsOutput; // Adds the current values to the total values
+
+    coinData.total += coinAmount;
+    coinData.heads += headsAmount;
+    coinData.tails += tailsAmount; // Displays whether heads or tails is winning
+
+    var headsWin = ' ';
+    var tailsWin = ' '; // Adds relevent emoji depending on number of heads/tails
+
+    if (coinData.heads > coinData.tails) {
+      headsWin = " ✅";
+    } else if (coinData.tails > coinData.heads) {
+      tailsWin = " ✅";
+    } else {
+      headsWin = " 💰";
+      tailsWin = " 💰";
+    } // Displayed values for total amounts
+
+
+    var totalTosses = "<h2>Total Amount:</h2>Tosses: " + String(coinData.total);
+    var totalHeads = "Heads: " + String(coinData.heads) + headsWin;
+    var totalTails = "Tails: " + String(coinData.tails) + tailsWin;
     lineGraph();
     drawTable(['Number of Heads', 'Frequency'], headsData, 'headsTable'); // Table drawn with data on the amount of heads
+    // Adds data to relevent ID
 
-    document.getElementById("totalTosses").innerHTML = amountOutput;
-  } // Receives current value and changes it to `coinOutput`
-
+    document.getElementById("totalTosses").innerHTML = totalTosses;
+    document.getElementById("totalHeads").innerHTML = totalHeads;
+    document.getElementById("totalTails").innerHTML = totalTails;
+  }
 
   document.getElementById("tossOutput").innerHTML = coinOutput;
 } // drawTable Parameters:
@@ -4776,7 +4792,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62544" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50141" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
