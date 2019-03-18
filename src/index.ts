@@ -15,8 +15,7 @@
 import Chartist = require("chartist");
 
 // Credit to konklone/ssl-redirect.html
-const host = "harens.me";
-if (host == window.location.host && window.location.protocol != "https:")
+if ("harens.me" == window.location.host && window.location.protocol != "https:")
   window.location.protocol = "https"; // Forces a redirect to HTTPS
 
 function enterInput(event: KeyboardEvent): void {
@@ -31,22 +30,17 @@ window.onload = () => document.addEventListener('keydown', enterInput);
 
 let headsData: {[headsAmount: number]: number} = {}; // Stores the total amount of head
 
+// Stores total amount of each value
+let coinData: { [value: string]: number } = {
+  heads: 0,
+  tails: 0,
+  total: 0
+};
+
 // Displays the current amount of heads and tails
 // Function is run when button is clicked
 function replyToss(): void {
   let coinOutput: string; // Final heads/tails result
-  let totalAmount: number; // Final total tosses
-
-  let currentAmount = (document.getElementById(
-    "totalTosses"
-  ) as HTMLInputElement).innerHTML; // Current displayed value for total tosses
-
-  if (currentAmount === "") { // IF there is no displayed value
-    totalAmount = 0
-  } else {
-    let amountList = currentAmount.split(" ")
-    totalAmount = Number(amountList[amountList.length - 1]) // Last item of lisr
-  }
 
   // Inputted Value
   // Converted to int (results in NaN if not possible)
@@ -79,17 +73,50 @@ function replyToss(): void {
       runCounter('neither');
     }
 
-    coinOutput = "Heads Amount: " + headsOutput + "<br>" + "Tails Amount: " + tailsOutput;
-    let amountOutput = "Total Tosses: " + String(totalAmount += coinAmount);
+    // Displayed values for current amounts
+    coinOutput = "<h2>Current Amount:</h2><br>Heads: " + headsOutput + "<br>" + "Tails: " + tailsOutput;
+
+    // Adds the current values to the total values
+    coinData.total += coinAmount;
+    coinData.heads += headsAmount;
+    coinData.tails += tailsAmount;
+
+    // Displays whether heads or tails is winning
+    let headsWin = ' ';
+    let tailsWin = ' ';
+
+    // Adds relevent emoji depending on number of heads/tails
+    if (coinData.heads > coinData.tails) {
+      headsWin = " ✅";
+    } else if (coinData.tails > coinData.heads) {
+      tailsWin = " ✅";
+    } else {
+      headsWin = " 💰";
+      tailsWin = " 💰";
+    }
+
+    // Displayed values for total amounts
+    const totalTosses = "<h2>Total Amount:</h2>Tosses: " + String(coinData.total);
+    const totalHeads = "Heads: " + String(coinData.heads) + headsWin;
+    const totalTails = "Tails: " + String(coinData.tails) + tailsWin;
 
     lineGraph();
     drawTable(['Number of Heads', 'Frequency'], headsData, 'headsTable'); // Table drawn with data on the amount of heads
 
+    // Adds data to relevent ID
     (document.getElementById(
       "totalTosses"
-    ) as HTMLInputElement).innerHTML = amountOutput;
+    ) as HTMLInputElement).innerHTML = totalTosses;
+
+    (document.getElementById(
+      "totalHeads"
+    ) as HTMLInputElement).innerHTML = totalHeads;
+
+    (document.getElementById(
+      "totalTails"
+    ) as HTMLInputElement).innerHTML = totalTails;
   }
-  // Receives current value and changes it to `coinOutput`
+
   (document.getElementById(
     "tossOutput"
   ) as HTMLInputElement).innerHTML = coinOutput;
