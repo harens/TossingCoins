@@ -15,7 +15,7 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "@types/chartist": "^0.9.44",
+    "@types/chartist": "^0.9.45",
     "chartist": "^0.11.0",
     "tslint": "^5.16.0"
   }
