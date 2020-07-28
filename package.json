@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@types/chartist": "^0.9.48",
-    "chartist": "^0.11.2",
+    "chartist": "^0.11.4",
     "tslint": "^5.20.1"
   }
 }
