@@ -900,10 +900,10 @@
     "@parcel/utils" "^1.11.0"
     physical-cpu-count "^2.0.0"
 
-"@types/chartist@^0.11.0":
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/@types/chartist/-/chartist-0.11.0.tgz#d64416f3b3781057301b3e22987eea4516fccaf8"
-  integrity sha512-YDJuUm0TkKj2WW6GlYmhOuBkaYzZBGJMvZz1X+Qp0Oj8oY3aozQ/YeWw4aNhfpyk5df0DKf6psjMftJI+GThtA==
+"@types/chartist@^0.11.1":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@types/chartist/-/chartist-0.11.1.tgz#3825e6cee87f5f548e8631b2c25e3a7b597b2522"
+  integrity sha512-85eNd7rF+e5sLnpprgcDdeqARgNvczEXaBfnrkw0292TBCE4KF/2HmOPA6dIblyHUWV4OZ2kuQBH2R12F+VwYg==
 
 "@types/q@^1.5.1":
   version "1.5.1"
